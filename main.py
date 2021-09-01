@@ -16,6 +16,7 @@ PASSWORD = ''
 MUSIC_DIR = 'music'
 FORBIDDEN_CHARS = r'@$%&\/:*?"\'<>|~`\#\^+={}\[\];!'
 
+
 def config_logger():
     console_handler = logging.StreamHandler(sys.stdout)
     file_handler = logging.FileHandler('.log')
@@ -29,6 +30,7 @@ def config_logger():
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
     logger.setLevel(logging.INFO)
+
 
 def vk_auth(login, password):
     def auth_handler():
@@ -55,6 +57,7 @@ def vk_auth(login, password):
     logger.info('Authentication successful')
     return session
 
+
 def write_audio(request, file_name):
     try:
         if not os.path.exists(MUSIC_DIR):
@@ -65,6 +68,7 @@ def write_audio(request, file_name):
             f.write(request.content)
     except OSError:
         logger.exception(f'Fail audio store to file: {file_name}')
+
 
 def download_audio(url, artist, title):
     try:
@@ -79,6 +83,7 @@ def download_audio(url, artist, title):
     else:
         logger.info(f'Success download: {file_name}')
 
+
 def main():
     try:
         session = vk_auth(LOGIN, PASSWORD)
@@ -91,6 +96,7 @@ def main():
         pass
     except:
         logger.exception('Something went wrong')
+
 
 if __name__ == '__main__':
     config_logger()
